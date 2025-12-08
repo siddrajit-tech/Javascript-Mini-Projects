@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo application</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <div class="header">
+        <h1>✓ My Todos</h1>
+        <p>Stay organized, get things done</p>
+      </div>
+
+      <!-- Input Section -->
+      <div class="input-section">
+        <div class="input-container">
+          <input
+            type="text"
+            id="todoInput"
+            placeholder="What needs to be done?"
+            autocomplete="off"
+          />
+          <button id="addBtn">Add Todo</button>
+        </div>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+      </div>
+
+      <!-- Todo List -->
+      <div class="todo-list" id="todoList">
+        <!-- Empty State (will be shown when no todos) -->
+        <div class="empty-state" style="display: none">
+          <div class="empty-state-icon">📝</div>
+          <p>No todos yet. Add one to get started!</p>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-number" id="totalCount">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="activeCount">0</span>
+          <span class="stat-label">Active</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="completedCount">0</span>
+          <span class="stat-label">Completed</span>
+        </div>
+      </div>
+
+      <template id="todoTemplate">
+        <div class="todo-item">
+          <input type="checkbox" class="checkbox" />
+          <span class="todo-text"></span>
+          <div class="todo-actions">
+            <button class="btn edit-btn">Edit</button>
+            <button class="btn delete-btn">Delete</button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </body>
+</html>
