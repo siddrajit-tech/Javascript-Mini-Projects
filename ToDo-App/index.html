@@ -18,13 +18,15 @@
       <!-- Input Section -->
       <div class="input-section">
         <div class="input-container">
-          <input
+          <form id="todoForm">
+            <input
             type="text"
             id="todoInput"
             placeholder="What needs to be done?"
             autocomplete="off"
           />
           <button id="addBtn">Add Todo</button>
+          </form>   
         </div>
       </div>
 
@@ -38,7 +40,7 @@
       <!-- Todo List -->
       <div class="todo-list" id="todoList">
         <!-- Empty State (will be shown when no todos) -->
-        <div class="empty-state" style="display: none">
+        <div class="empty-state" id="emptyState">
           <div class="empty-state-icon">📝</div>
           <p>No todos yet. Add one to get started!</p>
         </div>

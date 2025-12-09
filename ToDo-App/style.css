@@ -46,9 +46,10 @@ body {
   border-bottom: 1px solid #e9ecef;
 }
 
-.input-container {
+#todoForm{
   display: flex;
   gap: 10px;
+  width: 100%;
 }
 
 #todoInput {
