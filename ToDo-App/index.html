@@ -20,13 +20,13 @@
         <div class="input-container">
           <form id="todoForm">
             <input
-            type="text"
-            id="todoInput"
-            placeholder="What needs to be done?"
-            autocomplete="off"
-          />
-          <button id="addBtn">Add Todo</button>
-          </form>   
+              type="text"
+              id="todoInput"
+              placeholder="What needs to be done?"
+              autocomplete="off"
+            />
+            <button id="addBtn">Add Todo</button>
+          </form>
         </div>
       </div>
 
@@ -35,6 +35,10 @@
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="active">Active</button>
         <button class="filter-btn" data-filter="completed">Completed</button>
+
+        <button class="clear-completed-btn" id="clearCompleted">
+          Clear Completed
+        </button>
       </div>
 
       <!-- Todo List -->

@@ -1,10 +1,15 @@
 const addBtn = document.querySelector("#addBtn")
 const deleteBtn = document.querySelector(".delete-btn")
+const editBtn = document.querySelector(".edit-btn")
 const todoInput = document.querySelector("#todoInput")
 const template = document.querySelector("#todoTemplate")
 const todoList = document.querySelector("#todoList")
 const form = document.querySelector("#todoForm")
 const emptyState = document.querySelector("#emptyState")
+const totalTodosSpan = document.querySelector("#totalCount")
+const activeTodosSpan = document.querySelector("#activeCount")
+const completeTodosSpan = document.querySelector("#completedCount")
+const deleteCompleteBtn = document.querySelector("#clearCompleted")
 let todos = loadTodos()
 renderTodos()
 
@@ -19,6 +24,17 @@ todoList.addEventListener('click', e => {
   if(!e.target.classList.contains('delete-btn')) return
   deleteTodo(e)
 })
+todoList.addEventListener('change', e => {
+  if (!e.target.matches(".checkbox")) return
+
+  toggleComplete(e)
+})
+todoList.addEventListener('dblclick', e => {
+  if(!e.target.classList.contains("todo-text")) return
+
+  startEditing(e)
+})
+deleteCompleteBtn.addEventListener("click", deleteCompleteTodos)
 
 
 
@@ -50,6 +66,75 @@ function deleteTodo(e) {
   renderTodos()
 }
 
+function deleteCompleteTodos() {
+  const completedCount = todos.filter(todo => todo.complete).length
+  const confirmed = confirm(`Delete ${completedCount} completed todo(s)?`)
+  
+  if (completedCount === 0) return
+
+  if (confirmed) {
+    todos = todos.filter(todo => todo.complete !== true)
+    saveTodos()
+    renderTodos()
+  }
+}
+
+function toggleComplete(e) {
+
+  const parent = e.target.closest(".todo-item")
+  const todoId = parent.dataset.todoId
+
+  const todo = todos.find(t => t.id === todoId)
+  todo.complete = !todo.complete
+  console.log(todo);
+  
+  saveTodos()
+  renderTodos()
+}
+
+function startEditing(e) {
+  const todoText = e.target
+  const parent = e.target.closest(".todo-item")
+  const todoId = parent.dataset.todoId
+  const currentText = todoText.textContent
+
+  const input = document.createElement("input")
+  input.type = "text"
+  input.value = currentText
+  input.className = 'todo-edit-input'
+
+  todoText.replaceWith(input)
+
+  input.addEventListener("keydown", e => {
+    if (e.key === 'Enter') {
+      saveEdit(todoId, input.value.trim())
+    }else if(e.key === 'Escape') {
+      renderTodos()
+    }
+  })
+
+  input.addEventListener("blur", () => {saveEdit(todoId, input.value.trim())
+  })
+}
+
+function saveEdit(todoId, updatedText) {
+  const todo = todos.find(t => t.id === todoId)
+  todo.name = updatedText
+
+  saveTodos()
+  renderTodos()
+}
+
+function updateStats() {
+  const total = todos.length
+  const completed = todos.filter(todo => todo.complete).length
+  const active = total - completed
+
+  totalTodosSpan.textContent = total
+  activeTodosSpan.textContent = active
+  completeTodosSpan.textContent = completed
+}
+
 function renderTodos() {
   todoList.innerHTML = ""
 
@@ -75,6 +160,7 @@ function renderTodos() {
     todoList.appendChild(templateClone)
   })
   
+  updateStats()
 }
 
 function loadTodos() {
