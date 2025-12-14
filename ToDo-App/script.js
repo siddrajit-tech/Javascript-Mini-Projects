@@ -21,7 +21,7 @@ form.addEventListener('submit', e => {
   addTodo()
 })
 todoList.addEventListener('click', e => {
-  if(!e.target.classList.contains('delete-btn')) return
+  if(!e.target.matches('.delete-btn')) return
   deleteTodo(e)
 })
 todoList.addEventListener('change', e => {
@@ -30,11 +30,14 @@ todoList.addEventListener('change', e => {
   toggleComplete(e)
 })
 todoList.addEventListener('dblclick', e => {
-  if(!e.target.classList.contains("todo-text")) return
+  if(!e.target.matches(".todo-text")) return
 
   startEditing(e)
 })
 deleteCompleteBtn.addEventListener("click", deleteCompleteTodos)
+
+console.log(todos.length);
+
 
 
 
@@ -53,6 +56,7 @@ function addTodo() {
   saveTodos()
   renderTodos()
   todoInput.value = ""
+  todoInput.focus()
 }
 
 function deleteTodo(e) {
@@ -141,6 +145,7 @@ function renderTodos() {
   if(todos.length === 0) {
     emptyState.style.display = "block"
     todoList.appendChild(emptyState)
+    updateStats()
     return
   }
 
@@ -159,7 +164,7 @@ function renderTodos() {
 
     todoList.appendChild(templateClone)
   })
-  
+
   updateStats()
 }
 
